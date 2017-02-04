@@ -1,0 +1,68 @@
+//Given an array A of n distinct integer elements with the following property:
+//• The first k elements (0 < k < n-1) are in strictly increasing sequence followed by the
+//strictly decreasing sequence.
+//Example:
+//A = {1, 3, 4, 5, 7, 14, 11, 7, 2, -4, -8}. It monotonically increases from 1 to 14, then
+//decreases from 14 to -8
+//Implement an efficient program in Java that, given an array with the previous property,
+//determines whether a given integer is in the array.
+
+//This method finds the intger in the array
+static boolean contain(int arr[], int target)
+	{
+		int pivot = pivotInd(arr, 0, arr.length - 1);
+
+		//calls a binary search on the first of the array in increaseing order and calls another search
+		//on the decreasing half of the array
+		if(binSearchInc(arr, 0, pivot, target) || binSearchDec(arr, pivot, arr.length -1, target))
+		{
+      //integer found
+			return true;
+		}
+    //integer not found
+		return false;
+	}
+//using a binary search to find the pivot index for when the array begins descending
+static int pivotInd(int arr[], int low, int high)
+	{
+		int mid = (low + high) / 2;
+		if (arr[mid] > arr[mid + 1] && arr[mid] > arr[mid -1])
+		{
+			return mid;
+		}
+		if(arr[mid] < arr[mid + 1])
+		{
+			return pivotInd(arr, mid + 1, high);
+		}
+		else return pivotInd(arr,low, mid-1);
+	}
+//using a binary search to search the first half the array up to the pivotIndex for the target integer
+static boolean binSearchInc(int arr[], int low, int high, int target) {
+
+		if (low <= high) {
+			int mid = (low + high) / 2;
+			if (arr[mid] == target) {
+				return true;
+			}
+			if (arr[mid] > target) {
+				return binSearchInc(arr, low, mid - 1, target);
+			} else
+				return binSearchInc(arr, mid + 1, high, target);
+		}
+		return false;
+	}
+//searchs the second half of the array from the pivotIndex to the end of the array for the target integer
+static boolean binSearchDec(int arr[], int low, int high, int target) {
+		if (low <= high) {
+			int mid = (low + high) / 2;
+			if (arr[mid] == target) {
+				return true;
+			}
+			if (arr[mid] > target) {
+				return binSearchDec(arr, mid + 1, high, target);
+			} else
+				return binSearchDec(arr, low, mid - 1, target);
+		}
+		return false;
+
+	}
