@@ -1,0 +1,40 @@
+//There are three types of edits that can be performed on strings: insert a character, remove
+//a character, or replace a character. Given two strings, write a function to check if
+//they are one edit (or zero edits) away
+
+//This function takes two strings, adds the first string to an int array assuming it's the
+//extended ascii symbols and characters so it takes up 256 space so it counts the ascii
+//and adds it to the array and subtract the ascii number from the second string
+//then looping through the array it adds the absolute value into the edit variable
+//at any point it is more than 1 then return false
+
+public static boolean chkEdits(String str1, String str2)
+{
+	int[] count1 = new int[256];
+	
+	int i = 0, ascii = 0, edits = 0;
+		
+	if(Math.abs(str1.length() - str2.length()) > 1)
+	{
+		return false;
+	}
+	for(i = 0; i < str1.length(); i++)
+	{
+		ascii = str1.charAt(i);
+		count1[ascii]++;
+	}
+	for(i = 0; i < str2.length(); i++)
+	{
+		ascii = str2.charAt(i);
+		count1[ascii]--;
+	}
+	for(i = 0; i < count1.length; i++)
+	{
+		edits += Math.abs(count1[i]);
+		if(edits > 1)
+		{
+			return false;
+		}
+	}
+	return true;
+}
