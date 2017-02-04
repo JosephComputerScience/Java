@@ -1,0 +1,53 @@
+import java.util.Hashtable;
+//This solution finds out when comparing two strings if they're permutations of each other
+//Under the understanding that a permutation is simply just a rearrangement of a word 
+//And capitalization is not taken into account
+
+//This uses two Hashtable to store the characters as a key with the amount of occurrences they occur
+//Then both hashtables are compared to see if they both have the same keys and if that char
+//Occurs the same amount of times
+public static boolean chkPerm(String str1, String str2) {
+	Hashtable<Character, Integer> tble = new Hashtable<Character, Integer>();
+	Hashtable<Character, Integer> inTble = new Hashtable<Character, Integer>();
+	str1 = str1.toLowerCase();
+	str2 = str2.toLowerCase();
+	for (int i = 0; i < str1.length(); i++) 
+	{
+		char buffer = str1.charAt(i);
+		if (tble.get(buffer) == null) 
+		{
+			tble.put(buffer, 1);
+		} else
+			tble.put(buffer, tble.get(buffer) + 1);
+	}
+	System.out.println(tble);
+	for (int i = 0; i < str2.length(); i++) 
+	{
+		char buffer = str2.charAt(i);
+		if (inTble.get(buffer) == null) 
+		{
+			inTble.put(buffer, 1);
+		} else
+			inTble.put(buffer, inTble.get(buffer) + 1);
+	}
+	System.out.println(inTble);
+	if (str1.length() != str2.length()) 
+	{
+		return false;
+	}
+
+	for (Character ch : inTble.keySet()) 
+	{
+		if (tble.get(ch) == null || tble.get(ch) < inTble.get(ch)) {
+			return false;
+		}
+	}
+	for (Character ch : tble.keySet()) 
+	{
+		if (inTble.get(ch) == null || tble.get(ch) > inTble.get(ch)) {
+				return false;
+		}
+	}
+
+	return true;
+}
