@@ -1,0 +1,46 @@
+import java.util.Hashtable;
+//This method finds out if a string is unique meaning no repeating characters
+
+//Using a hashtable it checks to see if an element reoccurs using booleans with char is the key
+//The time complexity is O(N) while arguably using O(1) since it can never exceed 256 unique characters
+public static String chkUnique(String str)
+{
+	Hashtable<Character, Boolean> table = new Hashtable<Character, Boolean>();
+	if(sentence.length() == 0)
+	{
+		return "no input";
+	}
+	for(int i = 0; i < str.length(); i++)
+	{
+		if(table.get(str.charAt(i)) == null)
+		{
+			table.put(str.charAt(i), true);
+		}
+		else if(table.get(str.charAt(i)) == true)
+		{
+			return "Not unique";
+		}
+	}
+	return "Unique";
+}
+
+//This method uses an array of boolean taking advantage of ASCII if an ASCII code repeats in the array
+//It returns not unique right array using only characters the limit is set at 128 but can be easily changed
+//to 256 if using extended ASCII
+public static String chkUnique(String str)
+{
+	boolean[] check = new boolean[128];
+	if(str.length() > 128){
+		return "not unique";
+	}
+	for(int i = 0; i < str.length(); i++)
+	{
+		int val = str.charAt(i);
+		if(check[val])
+		{
+			return "Not unique";
+		}
+		check[val] = true;
+	}
+	return "Unique";
+}
