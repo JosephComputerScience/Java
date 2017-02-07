@@ -1,4 +1,8 @@
 // Write code to remove duplicates from an unsorted LinkedList
+//Needed imports
+import java.util.LinkedList;
+import java.util.Iterator;
+import java.util.Hashtable;
 
 //The static method uses a hashtable to store the value in the linkedlist and if the value
 //is found again it is removed and returns the Linkedlist
