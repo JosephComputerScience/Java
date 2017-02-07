@@ -1,0 +1,23 @@
+// Write code to remove duplicates from an unsorted LinkedList
+
+//The static method uses a hashtable to store the value in the linkedlist and if the value
+//is found again it is removed and returns the Linkedlist
+
+static LinkedList removeDuplicates(LinkedList<String> lst)
+	{
+		Hashtable<String, Boolean> check = new Hashtable<String, Boolean>();
+		Iterator<String> iter = lst.iterator();
+		while(iter.hasNext())
+		{
+			String value = iter.next();
+			if(check.get(value) == null)
+			{
+				check.put(value, true);
+			}
+			else if (check.get(value))
+			{
+				iter.remove();
+			}
+		}
+		return lst;
+	}
