@@ -1,0 +1,26 @@
+// Implement an algorithm to find the kth to last element of a singly linked list
+
+import java.util.LinkedList;
+import java.util.Iterator;
+
+//This static method takes a linkedlist of any type data and returns the kth position away from last
+//So inputing 0 would return the last data and a 1 input would return the data before last
+//Returns null if there are no data that is kth position away or if nothing exists in the Linkedlist
+
+static Object kthToLast(LinkedList<Object> lst, int kth)
+	{
+
+		Iterator<Object> iter = lst.iterator();
+		int count = lst.size() -1;
+		if (lst.peek() == null) return null;
+		if (kth > count) return null;
+		else 
+		{
+			Object value = iter.next();
+			for (int i = 0; i < (count - kth); i++)
+			{
+				value = iter.next();
+			}
+			return value;
+		}
+	}
