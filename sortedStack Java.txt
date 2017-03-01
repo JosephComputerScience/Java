@@ -1,0 +1,59 @@
+/* Implement a program in Java to sort a stack of integer in ascending order using for
+this purpose another auxiliary (temp) stack.
+You should not make any assumptions about how the stack is implemented. The
+following are the only functions that should be used to write this program: push,
+pop, peek, and isEmpty.
+peek - operation that returns the value of the top element of the stack without
+removing it. */
+
+import java.util.Stack;
+
+public class sortStack {
+	private Stack<Integer> stk = new Stack<Integer>();
+	private Stack<Integer> auxillary = new Stack<Integer>();
+	private int size;
+
+	public sortStack(Stack<Integer> stk) {
+		this.auxillary = stk;
+		this.size = stk.size();
+	}
+	public void sort()
+	{
+		int buffer;
+		while(!auxillary.isEmpty())
+		{
+			buffer = auxillary.pop();
+			if(!stk.isEmpty())
+			{
+				while(buffer < stk.peek())
+				{
+					auxillary.push(stk.pop());
+					if(stk.isEmpty())
+					{
+						break;
+					}
+				}
+				stk.push(buffer);
+			}
+			else if(stk.isEmpty())
+			{
+				stk.push(buffer);
+			}
+		}
+		
+	}
+	public String toString()
+	{
+		String print = "";
+		while(!stk.isEmpty())
+		{
+			print = auxillary.push(stk.pop()) + " " + print;
+		}
+		while(!auxillary.isEmpty())
+		{
+			stk.push(auxillary.pop());
+		}
+		System.out.println(print);
+		return print;
+	}
+}
